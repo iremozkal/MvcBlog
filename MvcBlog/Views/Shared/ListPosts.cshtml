@@ -1,0 +1,40 @@
+﻿@{
+    Layout = null;
+}
+
+@model IEnumerable<MvcBlog.Models.Post>
+
+@functions
+{
+    string shortenText(string text)
+    {
+        if (text.Length > 400) { return text.Substring(0, 400) + "..."; }
+        else { return text + "..."; }
+    }
+}
+
+@foreach (var post in Model)
+{
+    <article class="blog-post">
+        <header>
+            <h2><a href="/Post/Detail/@post.Id">@post.Title</a></h2>
+            <ul class="info">
+                <li>{ <a href="/Category/Index/@post.CategoryId">@post.Category.Name</a> }</li>
+                <li>{ <a href="/Post/ListByDate?year=@post.PublishedAt.Year&month=@post.PublishedAt.Month">@post.PublishedAt.ToString("MMMM yyyy")</a> }</li>
+                <li>{ <a href="/Author/Index/@post.AuthorId">@post.User.Name @post.User.Surname</a> }</li>
+                <br />
+                <li>{ <a href="/Post/Detail/@post.Id/#Comments">Comments: @post.Comments.Count</a> }</li>
+                <li class="reset-this">{ <a>Views: @post.ViewCount</a> }</li>
+                <li>{ <a href="javascript:void(0)" class="likePost" data-id="@post.Id">Like: @post.LikeCount</a> }</li>
+            </ul>
+        </header>
+        <div class="content">
+            <figure>
+                <a href="Post/Detail/@post.Id">
+                    <img src="@post.Image.PathMediumImage" alt=""/></a>
+            </figure>
+            <div class="text">@shortenText(@post.Body)</div>
+            <a href="/Post/Detail/@post.Id" class="btn btn-default">Read more</a>
+        </div>
+    </article>
+}

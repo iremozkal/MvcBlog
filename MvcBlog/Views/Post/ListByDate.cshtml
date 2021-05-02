@@ -1,0 +1,7 @@
+﻿@{
+    ViewBag.Title = "ListByDate";
+}
+
+@{
+    Html.RenderAction("ListPosts", new { year = ViewBag.year, month = ViewBag.month });
+}

@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Register";
+}
+
+<div style="text-align: -webkit-center;">
+    @using (Html.BeginForm("Register", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <table>
+            <tr>
+                <td>
+                    <h2>Welcome!</h2>
+                    <br />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Username </td>
+                <td>
+                    <input type="text" class="form-control" name="Nickname" value="" required />
+                </td>
+            </tr>
+            <tr>
+                <td>Name </td>
+                <td>
+                    <input type="text" class="form-control" name="Name" value="" required />
+                </td>
+            </tr>
+            <tr>
+                <td>Surname </td>
+                <td>
+                    <input type="text" class="form-control" name="Surname" value="" required />
+                </td>
+            </tr>
+            <tr>
+                <td>Mail </td>
+                <td>
+                    <input type="email" class="form-control" name="Mail" value="" required />
+                </td>
+            </tr>
+            <tr>
+                <td>Password </td>
+                <td>
+                    <input type="password" class="form-control" name="Password" value="" required />
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-right: 10px;">Password again </td>
+                <td>
+                    <input type="password" class="form-control" name="PasswordAgain" value="" required />
+                </td>
+            </tr>
+            <tr>
+                <td>Image </td>
+                <td>
+                    <input type="file" name="Image" value="" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <br />
+                    <input type="submit" value="Register" name="btnRegister" class="btn btn-info btn-sm pull-right" />
+                </td>
+            </tr>
+        </table>
+    }
+</div>

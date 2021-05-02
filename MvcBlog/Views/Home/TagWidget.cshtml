@@ -1,0 +1,15 @@
+﻿@{
+    Layout = null;
+}
+
+@model IEnumerable<MvcBlog.Models.Tag>
+
+<div class="widget blog-tags">
+    <h5>Blog tags</h5>
+    <ul>
+        @foreach (var tag in Model)
+        {
+            <li><a href="/Tag/Index/@tag.Id" class="btn btn-default">@tag.Name.ToLower() (@tag.Posts.Count)</a></li>
+        }
+    </ul>
+</div>

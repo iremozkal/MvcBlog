@@ -1,0 +1,40 @@
+﻿@model MvcBlog.Models.Category
+
+@{
+    ViewBag.Title = "Edit Category";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Id)
+    <table>
+        <tr>
+            <td>
+                <h2>Edit Category</h2>
+                <br />
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Category Name</td>
+            <td>
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br />
+                <div class="btn btn-default">
+                    @Html.ActionLink("Back to List", "Category")
+                </div>
+            </td>
+            <td>
+                <br />
+                <input type="submit" value="Save" name="btnEditCategory" class="btn btn-info btn-sm pull-right" /></td>
+        </tr>
+    </table>
+}
+@*<div>@Html.ActionLink("Back to List", "Category")</div>*@

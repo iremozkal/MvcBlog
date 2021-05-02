@@ -1,0 +1,39 @@
+﻿@model MvcBlog.Models.Category
+
+@{
+    ViewBag.Title = "Add Category";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <table>
+        <tr>
+            <td>
+                <h2>Add New Category</h2>
+                <br />
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Category Name</td>
+            <td>
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br />
+                <div class="btn btn-default">
+                    @Html.ActionLink("Back to List", "Category")
+                </div>
+            </td>
+            <td>
+                <br />
+                <input type="submit" value="Save" name="btnAddCategory" class="btn btn-info btn-sm pull-right" />
+            </td>
+        </tr>
+    </table>
+}

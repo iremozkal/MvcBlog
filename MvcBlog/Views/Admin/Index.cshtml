@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@model IEnumerable<MvcBlog.Models.Post>
+
+<h2>Posts</h2>
+<br />
+<table class="post-tables">
+    <tr>
+        <th class="table-titles">Title</th>
+        <th class="table-titles">Author</th>
+        <th class="table-titles">Category</th>
+        <th class="table-titles">Date of Publish</th>
+    </tr>
+    @foreach (var post in Model)
+    {
+        <tr>
+            <td class="table-contents">@post.Title</td>
+            <td class="table-contents">@post.User.Name @post.User.Surname</td>
+            <td class="table-contents">@post.Category.Name</td>
+            <td class="table-contents">@post.PublishedAt.ToString("MMMM yyyy")</td>
+        </tr>
+    }
+</table>

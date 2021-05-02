@@ -1,0 +1,25 @@
+﻿@model IEnumerable<MvcBlog.Models.Category>
+
+@{
+    ViewBag.Title = "Category";
+}
+
+<h2>Category</h2>
+<div class="btn btn-default" style="margin-bottom: 10px;">@Html.ActionLink("New Category", "AddCategory")</div>
+
+<table class="post-tables">
+    <tr>
+        <th class="table-titles">Name</th>
+        <th class="table-titles">Operations</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="table-contents">@Html.DisplayFor(modelItem => item.Name)</td>
+            <td class="table-contents">
+                @Html.ActionLink("Edit", "EditCategory", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "DeleteCategory", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>

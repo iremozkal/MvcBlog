@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "WritePost";
+}
+
+<div style="padding-right: 15px;">
+    <h2>Write a new post!</h2>
+    <br />
+
+    @using (Html.BeginForm("WritePost", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="form-group">
+            <input type="text" class="form-control" name="Title" placeholder="Title: " />
+        </div>
+        <div class="form-group">
+            <select name="CategoryId" class="custom-select category-selector">
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <option value="@category.Id">@category.Name </option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="file" name="Image" class="file-input form-control" />
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="Tags" placeholder="Tags:" />
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" placeholder="Content:" name="Body" rows="10"></textarea>
+        </div>
+        <input type="submit" value="Submit" name="btnAddPost" class="btn btn-info btn-sm pull-right" />
+    }
+</div>

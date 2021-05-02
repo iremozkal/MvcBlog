@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "Detail";
+}
+
+@model MvcBlog.Models.Post
+
+@helper whensTheLastTime(DateTime datetime)
+{
+    var timeSpan = DateTime.Now - datetime;
+    if (timeSpan.TotalMilliseconds < 0) { Write(""); }
+    else if (timeSpan.TotalMinutes < 1) { Write("Now"); }
+    else if (timeSpan.TotalHours < 1) { Write(@timeSpan.Minutes + " minutes ago"); }
+    else if (timeSpan.TotalDays < 1) { Write(@timeSpan.Hours + " hours ago"); }
+    else if (timeSpan.TotalDays > 1) { Write(@datetime.ToString("dd.MM.yyyy")); }
+}
+
+@helper upperCase(string text)
+{
+    Write(@text.ToUpper());
+}
+
+<script>
+    setTimeout(function () { postSeen(@Model.Id); }, 15000);
+</script>
+
+<article class="blog-post">
+    <header>
+        <h2><a href="/Post/Detail/@Model.Id">@Model.Title</a></h2>
+        <ul class="info">
+            <li>{ <a href="/Category/Index/@Model.CategoryId">@Model.Category.Name</a> }</li>
+            <li>{ <a href="/Post/ListByDate?year=@Model.PublishedAt.Year&month=@Model.PublishedAt.Month">@Model.PublishedAt.ToString("MMMM yyyy")</a> }</li>
+            <li>{ <a href="/Author/Index/@Model.AuthorId">@Model.User.Name @Model.User.Surname</a> }</li>
+        </ul>
+    </header>
+    <div class="text-editor">
+        <div class="content">
+            @Model.Body
+        </div>
+        <ul class="info-numbers">
+            <li>{ <a href="#Comments">Comments: @Model.Comments.Count</a> }</li>
+            <li>{ Views: @Model.ViewCount }</li>
+            @*            <li class="reset-this">{ <a>Views: @post.ViewCount</a> }</li>*@
+            <li>{ <a href="javascript:void(0)" class="likePost" data-id="@Model.Id">Like: @Model.LikeCount</a> }</li>
+        </ul>
+        <div class="author-wrap">
+            <div class="author">
+                <figure>
+                    <a href="/Author/Index/@Model.AuthorId">
+                        <img src="@Model.User.Image.PathSmallImage" alt="#" />
+                    </a>
+                </figure>
+                <div class="name">@Model.User.Name @Model.User.Surname</div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<div class="comments" id="Comments">
+    <h3>@Model.Comments.Count comments</h3>
+    <ul>
+        @foreach (var comment in Model.Comments)
+        {
+            <li class="comment">
+                <div class="user">
+                    <figure>
+                        <a href="#">
+                            <img src="@comment.User.Image.PathSmallImage" alt="" /></a>
+                    </figure>
+                    <div class="name text-center">
+                        <a href="#">This is @upperCase(@comment.User.Name + " " + @comment.User.Surname)</a>     @*comment.User.NickName*@
+                    </div>
+                </div>
+                <div class="comment-box">
+                    <div class="info">
+                        <div class="time-ago">@whensTheLastTime(@comment.AddedAt)</div>
+                    </div>
+                    <div class="text">@comment.Body</div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>
+
+@if (ViewBag.User != null)
+{
+    MvcBlog.Models.User user = new MvcBlog.Models.User(); 
+    <div class="write-comment">
+        <h3>Write a comment</h3>
+        <div class="user">
+            <figure>
+                <a href="#">
+                    <img src="@ViewBag.User.Image.PathSmallImage" alt="" /></a>
+            </figure>
+            <div class="name text-center">
+                <a href="#">@ViewBag.User.Name<br />@ViewBag.User.Surname</a>
+            </div>
+        </div>
+        <div class="textarea-wrap">
+            <form action="/Post/WriteComment" method="post">
+                <input type="hidden" name="AuthorId" value="@ViewBag.User.Id"/>
+                <input type="hidden" name="PostId" value="@Model.Id"/>
+
+                <textarea name="Body" placeholder="write something smart"></textarea>
+                <button type="submit" class="send">Send</button>
+            </form>
+        </div>
+        <hr>
+    </div>
+}

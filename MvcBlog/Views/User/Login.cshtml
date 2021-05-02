@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<div style="text-align: -webkit-center;">
+    @using (Html.BeginForm())
+    {
+        <table>
+            <tr>
+                <td>
+                    <h2>Welcome!</h2>
+                    <br />
+                </td>
+                <td>@ViewBag.Message</td>
+            </tr>
+            <tr>
+                <td>Username </td>
+                <td>
+                    <input type="text" class="form-control" name="Nickname" value="" required />
+                </td>
+            </tr>
+            <tr>
+                <td>Password </td>
+                <td>
+                    <input type="password" class="form-control" name="Password" value="" required />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <br />
+                    <input type="submit" value="Login" name="btnLogin" class="btn btn-info btn-sm pull-right" />
+                </td>
+            </tr>
+        </table>
+    }
+</div>

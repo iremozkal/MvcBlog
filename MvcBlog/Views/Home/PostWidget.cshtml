@@ -1,0 +1,54 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="widget posts">
+    <h5>Posts</h5>
+    <div class="widget-tabs">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#popular" data-toggle="tab">Popular</a></li>
+            <li><span>/</span></li>
+            <li><a href="#fresh" data-toggle="tab">Fresh</a></li>
+        </ul>
+        <div class="tab-content">
+            <!----------------------------- Popular ----------------------------->
+            <div class="tab-pane active" id="popular">
+                <ul>
+                    @foreach (var popPost in ViewBag.Popular)
+                    {
+                        <li>
+                            <figure>
+                                <a href="/Post/Detail/@popPost.Id">
+                                    <img src="@popPost.Image.PathSmallImage" alt=""/>
+                                </a>
+                            </figure>
+                            <div class="text">
+                                <a href="/Post/Detail/@popPost.Id">@popPost.Title</a>
+                                <a href="/Category/Index/@popPost.CategoryId" class="category">{ @popPost.Category.Name }</a>
+                            </div>
+                        </li> 
+                    }
+                </ul>
+            </div>
+            <!----------------------------- Fresh ------------------------------->
+            <div class="tab-pane" id="fresh">
+                <ul>
+                    @foreach (MvcBlog.Models.Post last in ViewBag.Fresh)
+                    {
+                        <li>
+                            <figure>
+                                <a href="/Post/Detail/@last.Id">
+                                    <img src="@last.Image.PathSmallImage" alt=""/>
+                                </a>
+                            </figure>
+                            <div class="text">
+                                <a href="/Post/Detail/@last.Id">@last.Title</a>
+                                <a href="/Category/Index/@last.CategoryId" class="category">{ @last.Category.Name }</a>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
